@@ -2,8 +2,8 @@
 %
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
-\usepackage{graphicx}
 \usepackage{ascmac}
+\usepackage[dvipdfmx]{graphicx}
 %
 \setlength{\textwidth}{\fullwidth}
 \setlength{\textheight}{40\baselineskip}
@@ -27,7 +27,33 @@
 \section{活動の概要}
 \section{競技プログラミングについて}
 \section{学習内容}
+
 \subsection{アルゴリズム}
+この班では以下の2つのアルゴリズムを学習した.
+\begin{itemize}
+    \item 深さ優先探索(dfs)
+    \item 累積和
+\end{itemize}
+
+\subsubsection{深さ優先探索}
+深さ優先探索とは,全探索を行うアルゴリズムの種類の一つです.
+競技プログラミングでは主に,状態の遷移が分岐するような処理の実装に用いられています.
+深さ優先探索の特徴として,与えられた状態の深さに注目して探索を行うという点が挙げられます.
+また深さ優先探索を用いるメリットとして,再帰を用いて実装した場合コードがシンプルに記述することが出来るという点が挙げられます.
+
+深さ優先探索の実装例.
+
+\includegraphics[width=10cm]{dfs.png}
+
+\subsubsection{累積和}
+累積和とは,計算量(オーダー)を圧縮するために用いられるアルゴリズムの種類の一つです.
+競技プログラミングでは主に,配列上の区間の総和を求める処理の実装に用いられています.
+累積和の特徴として,前処理を行うことによって元々の配列が保持している情報に加えてある区間の総和も求めることが出来るという点が挙げられます.
+
+累積和の実装例.
+
+\includegraphics[width=10cm]{ruisekiwa.png}
+
 \subsection{競技プログラミングにおけるテクニック}
 \section{活動で得られたもの}
 \section{問題点}
