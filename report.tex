@@ -98,18 +98,88 @@
 深さ優先探索の特徴として、与えられた状態の深さに注目して探索を行うという点が挙げられる。
 また深さ優先探索を用いるメリットとして、再帰を用いて実装した場合コードがシンプルに記述することが出来るという点が挙げられる。
 
-深さ優先探索の実装例
+\begin{lstlisting}[caption=深さ優先探索の実装例(ABC87 C問題),label=fuga]
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(i, n) for(int i = 0; i < (int)(n); i++)
 
-\includegraphics[width=10cm]{dfs.png}
+vector<int> a1;
+vector<int> a2;
+int n = 0;
+void chmax(int &a, int b) { if (a < b) a = b; }
+ 
+int dfs(int i, bool isDowned)
+{
+    // 終了条件
+    if(i == n-1)
+    {
+        if(isDowned) return a2[i];
+        else return a1[i] + a2[i];
+    }
+    
+    int ans = 0;
+     
+    if(!isDowned)
+    {
+        chmax(ans, dfs(i+1, true) + a1[i] + a2[i] );
+        chmax(ans, dfs(i+1, isDowned) + a1[i] );
+    }
+    else chmax(ans, dfs(i+1, isDowned) + a2[i] );
+ 
+    return ans;
+}
+ 
+int main()
+{
+    cin >> n;
+    vector<int> tmp;
+    rep(i,n*2)
+    {
+        int s;
+        cin >> s;
+        tmp.push_back(s);
+    }
+    rep(i,n) a1.push_back(tmp[i]);
+    rep(i,n) a2.push_back(tmp[i+n]);
+ 
+    cout << dfs(0, false) << endl;
+}
+\end{lstlisting}
 
 \subsubsection{累積和}
-累積和とは、計算量(オーダー)を圧縮するために用いられるアルゴリズムの種類の一つである。
+累積和とは、計算量を圧縮するために用いられるアルゴリズムの種類の一つである。
 競技プログラミングでは主に、配列上の区間の総和を求める処理の実装に用いられている。
 累積和の特徴として、前処理を行うことによって元々の配列が保持している情報に加えてある区間の総和も求めることが出来るという点が挙げられる。
 
-累積和の実装例.
+\begin{lstlisting}[caption=累積和の実装例(ABC122 C問題),label=fuga]
+#include<bits/stdc++.h>
+using namespace std;
+#define rep(i, n) for(int i = 0; i < (int)(n); i++)
 
-\includegraphics[width=10cm]{ruisekiwa.png}
+int main()
+{
+    int N,Q;
+    string s;
+    cin >> N >> Q >> s;
+ 
+    vector<pair<int, int> > lr(Q);
+    rep(i,Q) cin >> lr[i].first >> lr[i].second;
+
+    // 累積和を保持する配列の生成
+    vector<int>dp;
+    dp.push_back(0);
+ 
+    rep(i,s.size()-1)
+    {
+        if(s[i] == 'A' && s[i+1] == 'C') dp.push_back(dp[dp.size()-1] + 1);
+        else dp.push_back(dp[dp.size()-1]);
+    }
+    rep(i,Q)
+    {
+        cout << dp[lr[i].second-1] - dp[lr[i].first-1] << endl;
+    }
+}
+\end{lstlisting}
 
 \subsection{競技プログラミングにおけるテクニック}
 \writtenBy{西見 元希}
