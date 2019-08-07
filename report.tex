@@ -17,6 +17,28 @@
 \newcommand{\grad}{\mathrm{grad}\,}  %グラディエント
 \newcommand{\rot}{\mathrm{rot}\,}  %ローテーション
 %
+  \usepackage{listings,jlisting} 
+  %ここからソースコードの表示に関する設定
+  \lstset{
+    basicstyle={\ttfamily},
+    identifierstyle={\small},
+    commentstyle={\smallitshape},
+    keywordstyle={\small\bfseries},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    lineskip=-0.5ex
+  }
+  %ここまでソースコードの表示に関する設定
+
 \title{競技プログラミング班 活動報告書}
 \author{服部瑠斗　小村漱一朗　中野海人　稲垣和真　浜田直弥　西見元希　石川琉聖}
 \date{\today}
@@ -29,6 +51,67 @@
 \section{学習内容}
 \subsection{アルゴリズム}
 \subsection{競技プログラミングにおけるテクニック}
+\writtenBy{西見 元希}
+本項では、この活動において学ぶことのできた競技プログラミングにおけるテクニックを述べる。
+%
+\begin{itemize}
+    \item{\bf マクロの活用}
+      \par
+      defineマクロの活用は競技プログラミングにおける提出コードの冗長性を大きく削減し、より簡潔なコードを実現する。中でも単純な繰り返しにおけるrepマクロは最も頻繁に利用される。次のコードはrepマクロの定義と利用例、マクロを用いなかった場合との比較である。
+
+  
+%
+  \begin{lstlisting}[caption=repマクロの例,label=fuga]
+  #include<iostream>
+  using namespace std;
+ 
+  #define rep(i,n) for(int (i)=0;(i)<(n);++(i))
+  
+  //マクロを利用しない場合
+  int main(void){
+    int n=10;
+    vector<int> a(n);
+    for(int i=0;i<n;++i)
+      a[i]=i;
+    for(int i=0;i<n;++i)
+      cout << a[i] << endl;
+  }
+
+  //マクロを利用した場合
+  int main(void){
+    int n=10;
+    vector<int> a(n);
+    rep(i,n) a[i]=10;
+    rep(i,n) cout << a[i] << endl;
+  }
+  \end{lstlisting}
+  このコードでは要素数10の可変長配列に要素の座標と同じ数値を格納しそれを出力しているが、repマクロを用いることでコードが短くなり可読性が向上したのが確認できるだろう。
+      \par
+    \item{\bf ラムダ式の活用}
+      \par
+      ラムダ式は関数型プログラミングにおいてよく用いられる言語機能であるが、競技プログラミングでの主流言語であるC++にもその機能があり、ソートなどの引数として極めて便利に利用することができる。次のコードはラムダ式を利用した整数列のソートの例である。
+      \begin{lstlisting}[caption=lambda式の例]
+      #include<bits/stdc++.h>
+      using namespace std;
+      int main(void){
+        int n=10;
+        vector<int> a(n);
+        rep(i,n) a[i]=i;
+
+        //降順にソート
+        sort(v.begin(),v.end(),
+          [](int x, int y) -> auto{return x>y;});
+
+        //0246813579のようにソート
+        sort(v.begin(),v.end(),
+          [](int x, int y) ->
+            auto {if(x%2==y%2)return x<y;
+             else if(x%2)return x<y;
+             else return x<y;});
+      }
+      \end{lstlisting}
+      このようにラムダ式を用いたソートは非常に汎用的なソートが行える。
+      \par
 \section{活動で得られたもの}
 \section{問題点}
 \section{展望}
